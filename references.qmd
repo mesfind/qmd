@@ -1,0 +1,11 @@
+# References
+
+[Quarto website](https://quarto.org/)
+
+The Posit [cheatsheet](https://rstudio.github.io/cheatsheets/html/quarto.html)
+
+[R For Data Science section on Quarto](https://r4ds.hadley.nz/quarto)
+
+Extending word templates: https://quarto.org/docs/output-formats/ms-word-templates.html
+
+[happy git with r](http://happygitwithr.com/)

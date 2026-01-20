@@ -1,0 +1,7 @@
+# FAQ
+
+( A place for questions)
+
+## How can I include a screenshot of an interactive graphic in PDF or Word?
+
+You might wish to include a screenshot of an interactive graphic you had in your HTML document. To do this, you can use the webshot2 package
