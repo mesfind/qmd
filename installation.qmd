@@ -1,109 +1,111 @@
+```markdown
 # Installation
 
-In this section, the aim is to have everyone setup with R, RStudio, and Quarto
+```{r setup-engines, include=FALSE}
+# Register missing engines for clean rendering
+knitr::knit_engines$set(markdown = function(options) {
+  knitr::engine_output(options, options$code, "")
+})
+knitr::knit_engines$set(shell = function(options) {
+  knitr::engine_output(options, options$code, "")
+})
+```
+
+**NDMC/EPHI Training Setup** - Get everyone ready for Quarto in 15 minutes.
 
 ## Overview
 
-* **Duration** 15 minutes
+* **Duration**: 15 minutes
+* **Goal**: Install R, RStudio, Quarto + test public health workflows
 
-## Questions
+## Software Stack
 
-* How do I install R?
-* How do I install Quarto?
-* How do I install LaTeX in a sane way?
-
-## Software Setup
-
-### R
+### R (Version 4.4+)
 
 ::: {.panel-tabset}
 
 #### Windows
+[Download R](https://cloud.r-project.org/bin/windows/)
 
-[https://cloud.r-project.org/bin/windows/](https://cloud.r-project.org/bin/windows/)
+#### macOS  
+[Download R](https://cloud.r-project.org/bin/macosx/)
 
-#### MacOS
-
-[https://cloud.r-project.org/bin/macosx/](https://cloud.r-project.org/bin/macosx/)
-
-#### Linux
-
-[https://cloud.r-project.org/bin/linux/](https://cloud.r-project.org/bin/linux/)
+#### Linux (Ubuntu/Debian)
+```bash
+sudo apt update
+sudo apt install r-base
+```
 
 :::
 
-### RStudio
+### RStudio Desktop (2024+)
 
-[https://posit.co/download/rstudio-desktop/#download](https://posit.co/download/rstudio-desktop/#download)
+[Download RStudio](https://posit.co/download/rstudio-desktop/#download)
 
-### Quarto
+### Quarto (v1.5+)
 
-[Quarto installation page](https://quarto.org/docs/get-started/)
+[Quarto Install](https://quarto.org/docs/get-started/)
 
-## Checking you are up to date
-
-To ensure you are up to date, run the following script to install the packages.
-
-```{r}
-#| label: install-rmd
-#| eval: false
-install.packages("quarto")
-install.packages("knitr")
-install.packages("here")
-install.packages("tidyverse")
-install.packages("broom")
-install.packages("fs")
-install.packages("usethis")
+**One command installs everything**:
+```bash
+quarto install tinytex  # Includes lightweight LaTeX
 ```
 
-## A note on PDF
-
-Quarto documents can be compiled to PDF, which is a great feature. In order to convert the documents to PDF, they use a software called [LaTeX](https://www.latex-project.org/) (pronounced la-tek or lay-tek).
-
-Installing LaTeX is thankfully handled when you install Quarto, as [Quarto includes a built-in Latexmk engine](https://quarto.org/docs/output-formats/pdf-engine.html#latexmk). 
-
-### PDF / LaTeX Pain
-
-Installing LaTeX [can be a pain](https://yihui.name/tinytex/pain/), but thankfully Yihui Xie has put a lot of time and energy into making an easier way to install it - [`tinytex`](https://yihui.name/tinytex/). `tinytex` is an R package that installs a sane, lightweight (<200Mb) version of LaTeX. 
-
-If you are running into issues rendering a PDF, you can try the following:
+## Verify Installation
 
 ```{r}
-#| label: run-tiny-tex
+#| label: install-packages
 #| eval: false
+# Core packages for NDMC workflows
+install.packages(c(
+  "quarto", "knitr", "rmarkdown",
+  "tidyverse", "here", "broom", 
+  "fs", "usethis", "gapminder"
+))
+```
+
+## PDF Engine (LaTeX)
+
+**Quarto includes TinyTeX** (<200MB) - no separate LaTeX install needed!
+
+```{r}
+#| label: tinytex-check
+#| eval: false
+# Run once per machine
 tinytex::install_tinytex()
 ```
 
-If you get the following error, **this is good**! As it means that TeX has already been installed:
-
-```
-Error: Detected an existing tlmgr at /usr/local/bin/tlmgr. It seems TeX Live has been installed (check tinytex::tinytex_root()). You have to uninstall it, or use install_tinytex(force = TRUE) if you are sure TinyTeX can override it (e.g., you are a PATH expert or installed TinyTeX previously).
-```
-
-Alternatively, you can run the following from the terminal
-
-```{shell}
-#| eval: false
+**Terminal alternative**:
+```bash
 quarto install tinytex
-# follow the prompts from here
 ```
 
-### Problem solving with LaTeX
-
-If you have any problems with installing `tinytex`, I recommend you check out the [tinytex FAQ page](https://yihui.name/tinytex/faq/).
-
-## Test Script
-
-You should be able to run the following code on your machine
+## Test NDMC Workflow
 
 ```{r}
-#| label: library-test
+#| label: ndmc-test
 #| eval: false
-library(quarto)
-library(knitr)
-library(here)
+# Verify everything works
 library(tidyverse)
-library(broom)
-library(fs)
-library(usethis)
+library(here)
+library(quarto)
+
+# Test file creation
+file.create(here("test.qmd"))
+```
+
+## Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| `Rscript not found` | Restart RStudio |
+| `tinytex_root() error` | `tinytex::reinstall_tinytex()` |
+| `quarto not found` | Add to PATH: `export PATH=$PATH:/Applications/Quarto/bin` |
+
+**Success**: All libraries load → Ready for training!
+
+---
+**[Next: Why Quarto?](why-qmd.qmd)**
+
+**Live training**: https://mesfind.github.io/qmd/installation.html
 ```

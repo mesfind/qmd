@@ -9,8 +9,7 @@
 .DS_Store
 _book
 _bookdown_files
-docs
-_rmd4sci.rds
+_rmd.rds
 notes
 *.log
 /.quarto/
