@@ -1,0 +1,253 @@
+# Math
+
+Want to include equations in your writing? Easy. Quarto supports
+LaTeX style equation writing. This section introduces the two types equations, inline, and display form, as well as numbering equations.
+
+## Overview
+
+* **Teaching**: 10 minutes
+* **Exercises**: 10 minutes
+
+## Questions
+
+- How to I create an equation?
+- LaTeX is funky, what are the basic math commands?
+
+<!-- ## Objectives -->
+
+:::{.callout-caution title="Some History about LaTeX" collapse="true"}
+
+Equation editing was first made available in TeX, which later become LaTeX, named after [Leslie Lamport](https://en.wikipedia.org/wiki/Leslie_Lamport).
+
+:::
+
+## Anatomy of Equations
+
+This section shows you some basic equations types that you want to be familiar with.
+
+Inline equations are referenced by a pair of dollar signs: `$`.
+
+```
+So this text would have an equation here: $E = mc^2$
+```
+
+Generates:
+
+> So this text would have an equation here: $E = mc^2$
+
+Display equations are referenced by two pairs of dollar signs:
+
+```
+$$
+E = mc^2
+$$
+```
+
+Gives: 
+
+$$
+E = mc^2
+$$
+
+#### Viewing equations
+
+Understanding whether or not you have created the right equation can be difficult. Rstudio provides previews of your equations in text (**demo**).
+
+## Example math commands
+
+LaTeX is an amazing language, but understanding how to create the equations can be (more than) a bit confusing at times. This section demonstrates some example equations that you might be familiar with.
+
+
+#### Fractions
+
+:::: columns
+::: {.column width="45%"}
+```
+$$
+\frac{1}{2}
+$$
+```
+:::
+
+::: {.column width="45%"}
+
+$$
+\frac{1}{2}
+$$
+:::
+::::
+
+#### Sub and Super Scripts
+
+:::: columns
+::: {.column width="45%"}
+```
+$$
+Y = X_1 + X_2
+$$
+```
+
+:::
+::: {.column width="45%"}
+$$
+Y = X_1 + X_2
+$$
+:::
+::::
+
+
+:::: columns
+::: {.column width="45%"}
+```
+$$
+a^2 + b^2 = c^2
+$$
+```
+
+:::
+::: {.column width="45%"}
+$$
+a^2 + b^2 = c^2
+$$
+:::
+::::
+
+#### Square roots
+
+:::: columns
+::: {.column width="45%"}
+
+```
+$$
+\sqrt{p}
+$$
+```
+:::
+::: {.column width="45%"}
+
+$$
+\sqrt{p}
+$$
+:::
+::::
+
+:::: columns
+::: {.column width="45%"}
+
+```
+$$
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+$$
+```
+:::
+::: {.column width="45%"}
+
+$$
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+$$
+:::
+::::
+
+#### Summations
+
+:::: columns
+::: {.column width="45%"}
+
+```
+$$
+\sum_{i = 1}^{n}{(\bar{x} - x_i)^2}
+$$
+```
+:::
+
+::: {.column width="45%"}
+
+$$
+\sum_{i = 1}^{n}{(\bar{x} - x_i)^2}
+$$
+:::
+::::
+
+#### Bayes Rule
+
+:::: columns
+::: {.column width="45%"}
+
+```
+$$
+Pr(\theta | y) = \frac{Pr(y | \theta) Pr(\theta)}{Pr(y)}
+$$
+```
+:::
+::: {.column width="45%"}
+
+$$
+Pr(\theta | y) = \frac{Pr(y | \theta) Pr(\theta)}{Pr(y)}
+$$
+:::
+::::
+
+:::: columns
+::: {.column width="45%"}
+```
+$$
+Pr(\theta | y) \propto Pr(y | \theta) Pr(\theta)
+$$
+```
+:::
+
+::: {.column width="45%"}
+
+$$
+Pr(\theta | y) \propto Pr(y | \theta) Pr(\theta)
+$$
+:::
+::::
+
+#### Linear Model
+
+:::: columns
+::: {.column width="45%"}
+```
+$$
+Y \sim X\beta_0 + X\beta_1 + \epsilon
+$$
+```
+:::
+
+::: {.column width="45%"}
+
+$$
+Y \sim X\beta_0 + X\beta_1 + \epsilon
+$$
+:::
+::::
+
+:::: columns
+::: {.column width="45%"}
+```
+$$
+\epsilon \sim N(0,\sigma^2)
+$$
+```
+:::
+
+::: {.column width="45%"}
+
+$$
+\epsilon \sim N(0,\sigma^2)
+$$
+:::
+::::
+
+::: {.callout-note title="Your Turn"}
+
+1. Add some math to your "02-qmd-figures-chunks.qmd" document
+
+:::
+
+## Further Reading:
+
+<https://quarto.org/docs/visual-editor/technical.html#equations>
+<https://oeis.org/wiki/List_of_LaTeX_mathematical_symbols>
+

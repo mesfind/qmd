@@ -1,0 +1,35 @@
+# Alternative Outputs and Extensions
+
+This book itself is authored entirely in Quarto—demonstrating its power for reproducible scientific documents. One of Quarto's strengths is the low barrier to switching output formats. Most changes involve updating your `_quarto.yml` file to specify the target (e.g., book, website, or slideshow), allowing you to focus on content and code rather than reformatting.
+
+## Core Output Formats
+
+Quarto supports diverse formats for sharing research:
+
+- [Books](https://quarto.org/docs/books/) – Multi-chapter documents like this one.
+- [Websites](https://quarto.org/docs/websites/) – Interactive sites for reports and dashboards.
+- [Dashboards](https://quarto.org/docs/dashboards/) – Data-driven visuals for health surveillance.
+- [Shiny integration](https://quarto.org/docs/interactive/shiny/) – Interactive apps within documents.
+- [Parameterized reports](https://quarto.org/docs/computations/parameters.html) – Generate reports from data subsets (e.g., [Mike Mahoney](https://www.mm218.dev/posts/2022-08-04-how-to-use-quarto-for-parameterized-reporting/), [Mandy Norrbo](https://www.jumpingrivers.com/blog/r-parameterised-presentations-quarto/)).
+- [Typst](https://quarto.org/docs/output-formats/typst.html) – Modern alternative to LaTeX for PDF typesetting.
+
+## Presentations
+
+- [Reveal.js (HTML)](https://quarto.org/docs/presentations/revealjs/) – Web-based slides with transitions.
+- [Beamer (PDF)](https://quarto.org/docs/presentations/beamer.html) – LaTeX slides for print/export.
+- [PowerPoint](https://quarto.org/docs/presentations/powerpoint.html) – Native `.pptx` for broad compatibility.
+
+## Manuscripts and Journals
+
+[Quarto Manuscripts](https://quarto.org/docs/manuscripts/) bundle source files, code, and outputs for journal submission—ideal for reproducible epidemiology papers. Future updates to this book will cover their use in detail.
+
+Quarto's [journal extensions](https://quarto.org/docs/extensions/listing-journals.html) mirror R Markdown's `rticles`, supporting formats like PLOS, Nature, and more.
+
+## Quarto Extensions
+
+Explore official extensions at [Quarto Extensions](https://quarto.org/docs/extensions/). Key resources:
+
+- [Custom formats](https://quarto.org/docs/extensions/listing-formats.html), e.g., [Hikmah PDF](https://github.com/andrewheiss/hikmah-academic-quarto) by Andrew Heiss for academic PDFs.
+- [Creating extensions](https://quarto.org/docs/extensions/creating.html) – Build your own for geospatial or ML workflows.
+
+***

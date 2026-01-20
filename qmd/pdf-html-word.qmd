@@ -1,0 +1,92 @@
+# HTML, PDF, and Word (and more!)
+
+One of the great things about Quarto is that we can convert it to many different output types. The top three that you might be most likely to use are HTML, PDF, and Microsoft Word. There are [other formats](https://quarto.org/docs/reference/)! But we can discuss later.
+
+In this section, we are going to briefly discuss how to render to these output formats, and some things that you might want to do for each of them.
+
+## Overview
+
+* **Teaching**: 10 minutes
+* **Exercises**: 15 minutes
+
+## Questions
+
+* How do I convert to HTML, PDF, or Word?
+* How do I set options specific to each of these?
+* How can I include a screenshot of an interactive graphic in PDF or Word?
+* How to make a HTML page "self contained"?
+
+## Objectives
+
+## How do I convert to HTML, PDF, or Word?
+
+Here are three ways to do this:
+
+1. You can control this in the "render" button
+
+```{r}
+#| label: knit-screenshot
+#| eval: true
+#| echo: false
+knitr::include_graphics("figs/rstudio-render-button.png")
+```
+
+You might notice that depending on the option you select, this changes things in the YAML - which is another way to control which output you have:
+
+2. You can change the YAML option 
+
+```YAML
+title: "Exploring gapminder"
+format: html
+```
+
+```YAML
+title: "Exploring gapminder"
+format: pdf
+```
+
+```YAML
+title: "Exploring gapminder"
+format: docx
+```
+
+3. You can call the `quarto render` function - from the terminal if you wish
+
+```{shell}
+#| label: qmd-render
+#| eval: false
+quarto render example.qmd --to html
+quarto render example.qmd --to docx
+```
+
+### A note on workflow with Quarto: HTML first, PDF/word later
+
+It can be easy to get caught up with how your document looks. I highly recommend avoiding compiling to PDF or word until _you really need to_. [This is also recommended by the author of rmarkdown and knitr, Yihui Xie](https://yihui.name/en/2018/07/in-html-i-trust/). Because HTML doesn't have page breaks, this means that you can spend time working on generating content, and not trying to get figures to line up correctly. 
+
+This was a minor revelation to me, to understand that page breaks were the cause of so much angst and pain. Embrace HTML, I say!
+
+
+## How to make a HTML page "self contained"
+
+PDFs are great because they are a very Portable Document Format (PDF!). But HTML can be really awesome as well because:
+
+- no page breaks
+- awesome online interactive data vis
+- did I mention no page breaks?
+
+But in order to share a HTML document you'll need to also typically share a folder of other figures/files etc.
+
+You can have everything crammed into a _single HTML page_ by setting the option `embed-resources` to `true`:
+
+```yaml
+title: HTML is great
+format:
+  html:
+    embed-resources: true
+```
+
+::: {.callout-note title="Your Turn"}
+
+1. Using your “01-qmd-examples.qmd” Quarto document you were using earlier, generate three reports, one as HTML, one as PDF, and one as microsoft word. Remember, if you are having PDF problems, see the [installation chapter](installation) note on installing LaTeX with the R package, `tinytex`.
+
+:::

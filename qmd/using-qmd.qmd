@@ -1,0 +1,361 @@
+# Using Quarto
+
+So far we have covered:
+
+- How to **organise** your project (RStudio projects!)
+- **Appropriately** refer to data (file storage hygiene!)
+- A brief intro into **what** Quarto is
+
+Now, let's talk about **using** Quarto.
+
+## Overview
+
+* **Teaching** 10 minutes
+* **Exercises** 10 minutes
+
+## Questions
+
+- How should I start an Quarto document?
+- What do I put in the YAML metadata?
+- How do I create a code chunk?
+- What sort of options to I need to worry about for my code?
+
+## Objectives
+
+- Create a Quarto document, do some basic exploration
+
+## The anatomy of a Quarto document
+
+This is a Quarto document (demo). It has three parts:
+
+1. Metadata (YAML)
+1. Text (markdown formatting)
+1. Code (code formatting)
+
+<!-- TODO It would be super cool to have a little cute figure of this overview -->
+
+### Metadata
+
+The metadata of the document tells you how it is formed - what the title is, what date to put, and other control information.  If you're familiar with LaTeX, this is kind of like how you specify the many options, what sort of document it is, what styles to use, and so on at the front matter.
+
+Quarto documents use [YAML (YAML Ain't Markup Language)](https://en.wikipedia.org/wiki/YAML) to provide the metadata. It looks like this.
+
+```yaml
+---
+title: "An example document"
+author: "Nicholas Tierney"
+format: html
+---
+```
+
+It starts and ends with three dashes `---`, and has fields like the following: `title`, `author`, and `format`. 
+
+`title` and `author` are special inputs which place the title and author information at the top of the document in large font. They are optional!
+
+`format: html ` tells us we want this to be a HTML formatted document - you'll see what this looks like in a moment!
+
+### Text
+
+Is markdown, as we discussed in the earlier section,
+
+It provides a simple way to mark up text
+
+::: {.panel-tabset}
+
+#### Markdown
+
+```
+- bullet list
+- bullet list
+- bullet list
+
+1. numbered list
+2. numbered list
+3. numbered list
+
+__bold__, **bold**, _italic_, *italic*
+
+> quote of something profound 
+```
+
+````
+```r
+# computer code goes in three back ticks
+1 + 1
+2 + 2
+```
+````
+
+#### Rendered text
+
+- bullet list
+- bullet list
+- bullet list
+
+1. numbered list
+2. numbered list
+3. numbered list
+
+__bold__, **bold**, _italic_, *italic*
+
+> quote of something profound 
+
+```{r}
+#| label: example-chunk
+# computer code goes in three back ticks
+1 + 1
+2 + 2
+```
+
+:::
+
+### Code
+
+We refer to code in an Quarto document in two ways: 
+
+1. Code chunks, and 
+1. Inline code.
+
+#### Code chunks
+
+Code chunks are marked by three backticks and curly braces. We put the letter `r` inside them to denote them as "r" code chunks, but you can instead use "python" and "julia" instead:
+
+::: {.panel-tabset}
+
+## R
+
+```{{r}}
+#| label: r-chunk-name
+# a code chunk
+```
+
+## python
+
+```{{python}}
+#| label: py-chunk-name
+# a code chunk
+```
+
+## julia
+
+```{{julia}}
+#| label: julia-chunk-name
+# a code chunk
+```
+
+::: 
+
+::: {.callout-important collapse="false" title="This book currently focusses only on R"}
+
+Quarto provides support for R, Python, Julia, and Observable, which are all very powerful and awesome languages! However currently we will only be focussing on using R in this book. But I want to make sure that you know you can use python, or Julia, or Observable! More languages will be supported into the future, I believe.
+
+:::
+
+**a backtick** is a special character you might not have seen before, it is typically located under the tilde key (`~`). On USA / Australia keyboards, is under the escape key:
+
+```{r}
+#| label: show-backtick
+#| echo: false
+#| out-width: 100%
+#| fig-cap: image from https://commons.wikimedia.org/wiki/File:ANSI_Keyboard_Layout_Diagram_with_Form_Factor.svg
+knitr::include_graphics("figs/ansi-keyboard.png")
+```
+
+### Chunk names
+
+Every chunk should ideally have a name. As I've mentioned earlier, naming things is hard, but follow these rules and you'll be fine:
+
+* one word that describes the action (e.g., "read")
+* one word that describes the thing inside the code (e.g, "gapminder")
+* separate words with "-" or "_" (e.g., `read-gapminder`)
+
+## Code chunk options
+
+You can control how the code is output by changing the code chunk options, which are written with a `#|`, called a "hash-pipe", since `#` is "hash", and `|` is "pipe", but might sometimes be called "bar" or "v-bar".
+
+```{r}
+#| label: read-gapminder
+#| eval: false
+#| echo: fenced
+gap <- read_csv("gapminder.csv")
+```
+
+A nice feature of Quarto + Rstudio is that they provide code completion when you start writing the code chunk options, and they will provide options when hitting "tab". 
+
+<!-- TODO *gif of this* -->
+
+In the past Rmarkdown required "TRUE" and "FALSE", but note that Quarto **always** uses `true` or `false` in lowercase, and __never__ "yes" or "no". 
+
+The code chunks you need to know about right now are:
+
+  * `eval`: `true`/`false` Do you want to evaluate the code?
+  * `echo`: `true`/`false` Do you want to print the code?
+  * `cache`: `true` / `false` Do you want to save the output of the chunk so it doesn't have to run next time?
+  * `include`: Do you want to include code output in the final output document? Setting to `false` means nothing is put into the output document, but the code is still run.
+
+<!-- TODO What are messages, warnings, errors, results? -->
+
+  <!-- * error: If you want R to stop on errors, set to `false` -->
+  <!-- * warning: preserve warnings (produced by `warning()`). IF `false`, all warnings will be printed in the console instead of the output document  -->
+  <!-- * message: Similar to warning, do you want to preserve messages provided by `message()`.  -->
+
+
+<!--   * results: option 'hold' will wait until the code chunk is complete and then  -->
+  
+You can read more about the options at the official documentation: <https://quarto.org/docs/computations/execution-options.html>
+
+::: {.callout-tip title="Converting Rmarkdown to Quarto" collapse="true"}
+
+If you've got some Rmarkdown document and you want to change over the chunk headers, you can run code like this:
+
+```{r}
+#| eval: false
+knitr::convert_chunk_header(
+  input = "paper.qmd",
+  output = identity
+)
+```
+
+:::
+
+### Inline code
+
+Sometimes you want to run the code inside a sentence. When the code is run inside the sentence, it is called running the code "inline".
+
+You might want to run the code inline to name the number of variables or rows in a dataset in a sentence like:
+
+> There are XXX observations in the airquality dataset, and XXX variables.
+
+You can call code "inline" like so:
+
+````
+```{{r}}
+r_heights <- c(153, 151, 156, 160, 171)
+r_mean <- mean(r_heights)
+```
+
+The mean of these heights is `{{r}} r_mean`
+````
+
+Which will produce the following sentence:
+
+```{r}
+#| label: example-inline
+#| output: false
+#| echo: false
+r_heights <- c(153, 151, 156, 160, 171)
+r_mean <- mean(r_heights)
+```
+
+> The mean of these heights is `{r} r_mean`
+
+Essentially, instead of using **three backticks** to write multiple lines of code, you use **a single backtick**. You can think of this as a backtick being used inside text for a one liner, whereas creating a code fence with three backticks indicates something longer.
+
+````{verbatim, lang = "r"}
+There are `{{r}} nrow(airquality)` observations in the airquality dataset, 
+and `{{r}} ncol(airquality)` variables.
+````
+
+Which gives you the following sentence
+
+> There are `r nrow(airquality)` observations in the airquality dataset, and `r ncol(airquality)` variables.
+
+What's great about this is that if your data changes upstream, then you don't need to work out where you mentioned your data and change that bit of text. You just render the document and it takes care of these details.
+
+## Creating a Quarto document
+
+* Rstudio menu system
+* Explore the template provided by Rstudio
+* Compile an Quarto document
+
+## Working with a Quarto document
+
+**Demo: Create a Quarto document in rstudio.**
+
+::: {.callout-note title="Your Turn"}
+
+1. Use the rstudio project you previously created, `qmd4sci-materials`, and open the "01-qmd-examples.qmd" file.
+1. Run some brief summaries of the data in the Quarto document:
+    - hist(data$)
+    - How big is the data?
+    - How many countries are there?
+    - What was the lowest life expectancy in Australia's History?
+    - How about the lowest GDP for Australia?
+    - Where does Australia rank in GDP in 1997?
+
+<!-- # My philosophy on Quarto -->
+
+<!-- - Keep it simple -->
+<!-- - focus on content -->
+
+:::
+
+## Nick's Quarto starter pack
+
+I highly recommend that each document you write has a certain structure:
+
+- Sets global options in the YAML
+- First code chunk manages libraries
+- Second code chunk manages functions
+
+For example
+
+````
+---
+title: example
+format: 
+  html:
+    fig-align: center
+    fig-width: 4
+    fig-height: 4
+    fig-format: png
+execute:
+  echo: false
+  cache: true
+---
+
+
+```{{r}}
+#| label: library
+library(tidyverse)
+```
+
+```{{r}}
+#| label: functions
+# A function to scale input to 0-1
+scale_01 <- function(x){
+  (x - min(x, na.rm = TRUE)) / diff(range(x, na.rm = TRUE))
+}
+```
+
+```{{r}}
+#| label: read-data
+gapminder <- read_csv(here::here("data", "gapminder.csv"))
+```
+````
+
+In the YAML chunk under `execute`, you set the options that you want to define globally. In this case, I've told Quarto:
+
+* `fig-align: center` Align my figures in the center
+* `fig-width: 4` & `fig-height: 4`. Set the width and height to 4 inches. 
+*  `fig-format: png`. Save the images as PNG
+* `cache: true`. Save the output results of all my chunks so that they don't need to be run again.
+* `echo: false`: I don't want any code printed by setting `echo: false`.
+
+In the `library` chunk, you put all the library calls. This helps make it clearer for anyone else who might read your work what is needed to run this document. I often go through the process of moving these `library` calls to the top of the document when I have a moment, or when I'm done writing. You can also look at Miles McBain's [`packup`](https://github.com/milesMcBain/packup) package to help move these library calls to the top of a document.
+
+In the `functions` chunk, you put any functions that you write in the process of writing your document. Similar to the `library` chunk, I write these functions as I go, as needed, and them move these to the top when I get a moment, or once I'm done. The benefit of this is that all your functions are in one spot, and you might be able to identify ways to make them work better together, or improve them separately. You might even want to move these into a new R package, and putting them here makes that easier to see what you are doing.
+
+In the `readr` chunk, you read in any data you are going to be using in the document.
+
+Now, this is my personal preference, and there are definitely other ways to organise things! But, I find the following benefits:
+
+1. The "top part" of your document contains all the metadata / setup info. Your global options. You don't need to specify every single code chunk.
+1. It helps another person get oriented with your work - they know the settings, the functions used, and the special things that you wrote (your functions)
+1. Remember, "another person" includes yourself in 6 months. You are always collaborating with your future self. **You are always collaborating with your future self.** Say it with me.
+
+::: {.callout-note title="Your Turn"}
+
+1. Update the "01-qmd-example.qmd" Quarto document you just created, based on the aforementioned steps discussed above.
+
+:::

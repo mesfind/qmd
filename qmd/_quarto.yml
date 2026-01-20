@@ -1,0 +1,73 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "Quarto for Reproducible Research"
+  author: "Mesfin Diro"
+  description: |
+    For a scientific report to be fully credible, it must be reproducible. Quarto integrates code, text, and figures in a single file to create high-quality, reproducible reports. Anyone with a computer can reproduce a paper published with its Quarto source and datasets.
+  site-url: https://mesfind.github.io/qmd
+  repo-url: https://github.com/mesfin/qmd
+  repo-branch: main
+  repo-actions: [edit, issue]
+  date: "2026-01-09"  
+  page-footer: "Copyright © 2026, Mesfin Diro"
+  page-navigation: true
+  search: true
+  
+  # Core content structure
+  chapters:
+    - index.qmd
+    - license.qmd
+    - installation.qmd
+    - why-qmd.qmd
+    - rstudio.qmd
+    - workflow.qmd
+    - using-qmd.qmd
+    - pdf-html-word.qmd
+    - keyboard-shortcuts.qmd
+    - figures-tables-captions.qmd
+    - changing-figures.qmd
+    - math.qmd
+    - cite-fig-tab-sec.qmd
+    - citations-and-styles.qmd
+    - caption-reference-eqn.qmd
+    - common-problems.qmd
+    - alternative-outputs-and-exts.qmd
+    - next-steps.qmd
+    - references.qmd
+    - acknowledgements.qmd
+  
+  # Supplementary appendices
+  appendices:
+    - appendix-visual-vs-source-mode.qmd
+    - appendix-template.qmd
+    - appendix-faq.qmd
+    - appendix-html-extensions.qmd
+    - appendix-manuscript.qmd
+
+# Bibliography sources
+bibliography:
+  - book.bib
+  - packages.bib
+
+# Output formats
+format:
+  html:
+    theme: 
+      - cosmo
+      - qmd.scss
+    code-background: true
+    code-copy: true
+    code-overflow: wrap
+    toc: true
+  
+  pdf:
+    documentclass: krantz
+    keep-tex: true
+    cite-method: natbib
+
+# Execution settings
+execute:
+  freeze: false

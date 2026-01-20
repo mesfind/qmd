@@ -1,0 +1,189 @@
+# Customising your figures
+
+When you produce figures, you usually want to tweak them a little bit. A bit wider, perhaps a bit taller. Perhaps a different image type other than "png", because the journal requires "svg" or "jpg". Maybe you need 600dpi because you're going to print it really big. 
+
+We can control these features with code chunk options. 
+
+In this section, we are going to talk more specifically about how to customise your figures.
+
+## Overview
+
+* **Teaching** 10 minutes
+* **Exercises** 10 minutes
+
+## Questions
+
+* How do I change the height and width of a figure?
+* How to I change the type of output of a figure? (e.g., PDF, PNG, JPG, SVG)
+* Can I set all the figure features globally?
+* How do I save the figures?
+
+## Objectives
+
+* Learn how to set individual figure height, width, aspect, and print size
+* Learn how to set global parameters for your chunks
+* Get a copy of all of your figures
+
+## Which chunk options should you care about for this?
+
+There are many chunk options that control your output, but only a few that you really need to worry about for your figures:
+
+- `fig-align`: How do you want your figure aligned? Takes one of the following inputs: "default", "center", "left", or "right"? (**demo**)
+- `fig-cap`: Would you like a caption for your figure? It takes a character vector as input: "My Amazing Graph"
+- `fig-height` & `fig-width`: How tall and wide would you like your figure in inches? Each takes one number (e.g., 7, or 9) [Note: these numbers are not quoted]
+
+
+<!-- - `out.height` & `out.width`: The height and width of your plot in the final file. This can be handy if you like the current aspect ratio of your plot, but you want to shrink it by say 50% - which you would do with "50%". You can also include LaTeX output or HTML output. Say for example, ".8//linewidth" or "8cm" for LaTeX, or "300px" for HTML. 
+
+These are no longer an option in Quarto
+-->
+
+For demonstration purposes, let's take a plot from earlier and show how it's output can change.
+
+* with `fig-height`, `fig-width`, `fig-format: `
+
+
+::: {.callout-note title="Your Turn"}
+
+1. Open exercise `exercises/02-qmd-figures-chunks/02-qmd-figures-chunks.qmd` Create three figures, with the respective dimensions (`fig-height` and `fig-width`)
+    * 2x2
+    * 10x10
+    * 4x7
+2. Now add to those figures, the following:
+    * `fig-align = "center"`
+3. Now change the output type to be "svg"
+
+:::
+
+## Setting global options
+
+If we repeat adding the same chunk options for each figure, we might want to consider setting them globally. We can do this by changing the options in the YAML:
+
+```yaml
+---
+title: "02-qmd-figures-chunks"
+author: "Your Name"
+date: 2024/06/23
+format: 
+  html:
+    fig-height: 7
+    fig-width: 7
+    fig-format: png
+    fig-dpi: 300
+---
+```
+
+::: {.callout-note title="Your Turn"}
+
+1. Set the global options in the "02-qmd-figures-chunks.qmd" document to set:
+  * `fig-height`
+  * `fig-width`
+  * `fig-format`
+  
+:::
+
+
+::: {.callout-tip title="Demo: Keeping your markdown"}
+
+You can set the options for your figures, which will change how they appear on the page, but this won't save the figures anywhere. In order to save the figures to file, you need to edit the YAML option `keep-md: true`:
+
+```YAML
+---
+title: "Awesome report"
+author: "You"
+format: 
+  html:
+    keep-md: true
+---
+```
+
+:::
+
+## Altering where figures are saved to
+
+By default, the figures are saved in a folder named after the file, e.g., 
+
+`02-qmd-figures-chunks_files/figure-html`
+
+If you want to change this location, you can control the specific name of the folder by setting `fig.path` like so in the YAML
+
+```yaml
+---
+title: "Awesome report"
+author: "You"
+format: 
+  html:
+    keep-md: true
+knitr:
+  opts_chunk:
+    fig.path: folder/for/figures/prefix-
+---
+```
+
+If you do **not** want a prefix specified, you must end this part with a slash, e.g., 
+
+```yaml
+---
+title: "Awesome report"
+author: "You"
+format: 
+  html:
+    keep-md: true
+knitr:
+  opts_chunk:
+    fig.path: figures/
+---
+```
+
+(reference: [https://github.com/quarto-dev/quarto-cli/discussions/4254](https://github.com/quarto-dev/quarto-cli/discussions/4254))
+
+::: {.callout-note title="Your Turn"}
+
+1. Save your images to a specific directory of your choice
+
+:::
+
+## Further Reading
+
+- [Official Quarto documentation on figures](https://quarto.org/docs/computations/r.html#output-formats)
+
+::: {.callout-caution title="Managing EPS/TIFF/Other multiple image formats" collapse="true"}
+
+Unfortunately (currently, as far as I can tell) in Quarto it seems you cannot save to other image formats such as "eps", "tiff", and cannot save to multiple formats at the same time.
+
+If you would like to convert images to a specific format, you could try using code like the following.
+
+```{r}
+#| eval: false
+
+library(magick)
+library(fs)
+
+# List existing file paths matching "png" extension
+figures_ls <- dir_ls(
+  path = "exercises/02-qmd-figures-chunks/02-qmd-figures-chunks_files/",
+  recurse = TRUE,
+  glob = "*.png"
+  )
+
+# read images in
+library(purrr)
+figures <- map(
+  figures_ls,
+  \(x) image_read(path = x)
+)
+
+# create new paths with .TIFF extension
+# substitute out for another image format like "bmp", "
+new_paths <- xfun::with_ext(figures_ls, "tiff")
+
+# write new images
+walk2(
+  .x = figures,
+  .y = new_paths,
+  \(x, y) image_write(image = x, path = y)
+)
+
+```
+
+:::
