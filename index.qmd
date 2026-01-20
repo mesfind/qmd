@@ -12,34 +12,55 @@ knitr::knit_engines$set(shell = function(options) {
 })
 ```
 
+# NDMC/EPHI Training Materials
 
-# Training Material
+**Live site**: [https://mesfind.github.io/qmd/](https://mesfind.github.io/qmd/)
 
-**Live at**: [https://mesfind.github.io/qmd/](https://mesfind.github.io/qmd/)
+## 🔄 **Reproduce Locally (2 minutes)**
 
-## Core Training (Half-Day Workshop)
+```{r}
+#| label: use-course
+#| echo: true
+#| eval: false
+# Download complete training materials
+usethis::use_course("mesfin/qmd")
+```
 
-- **[Why Quarto?](installation.qmd)** - Reproducible research for public health
-- **[Installation](why-qmd.qmd)** ← **Start here** - RStudio + TinyTeX setup  
-- **[RStudio Setup](rstudio.qmd)** - Projects and workspace management
-- **[Workflow](workflow.qmd)** - Best practices for NDMC teams
-- **[Basic Documents](using-qmd.qmd)** - First Quarto file
-- **[PDF/HTML/Word](pdf-html-word.qmd)** - Multi-format export
-- **[Keyboard Shortcuts](keyboard-shortcuts.qmd)** - Speed up coding
-- **[Figures & Tables](figures-tables-captions.qmd)** - Disease maps + risk tables
-- **[Custom Visuals](changing-figures.qmd)** - Resize, save, format plots
-- **[Mathematics](math.qmd)** - SIR models and equations
+```{bash}
+#| label: quarto-render
+#| eval: false
+# Navigate to folder
+cd qmd
 
-## Reference & Advanced
+# Build book (25 files → docs/)
+quarto render
 
-- **[Cross-references](cite-fig-tab-sec.qmd)** - `@fig-map`, `@tbl-risk`
-- **[Citations](citations-and-styles.qmd)** - BibTeX for proposals
-- **[Equations](caption-reference-eqn.qmd)** - Numbered formulas
+# Preview locally
+quarto preview docs/
+```
+
+## **Core Training (Half-Day Workshop)**
+
+1. **[Installation](installation.qmd)** ← **START HERE** - R + Quarto setup
+2. **[Why Quarto?](why-qmd.qmd)** - Reproducible research benefits
+3. **[RStudio Setup](rstudio.qmd)** - Projects + workspace
+4. **[Workflow](workflow.qmd)** - NDMC best practices
+5. **[Basic Documents](using-qmd.qmd)** - First `.qmd` file
+6. **[PDF/HTML/Word](pdf-html-word.qmd)** - Multi-format export
+7. **[Keyboard Shortcuts](keyboard-shortcuts.qmd)** - 10x productivity
+8. **[Figures & Tables](figures-tables-captions.qmd)** - Maps + risk tables
+9. **[Custom Visuals](changing-figures.qmd)** - Resize + save plots
+10. **[Mathematics](math.qmd)** - SIR models + equations
+
+## **Reference Materials**
+
+- **[Cross-references](cite-fig-tab-sec.qmd)** - `@fig-malaria-map`, `@tbl-risk`
+- **[Citations](citations-and-styles.qmd)** - BibTeX for Gates proposals
 - **[Troubleshooting](common-problems.qmd)** - Fix common errors
-- **[Dashboards/Slides](alternative-outputs-and-exts.qmd)** - Surveillance + presentations
-- **[Next Steps](next-steps.qmd)** - Parameterized reports, Earth Engine
+- **[Dashboards/Slides](alternative-outputs-and-exts.qmd)** - Surveillance reports
+- **[Next Steps](next-steps.qmd)** - Earth Engine + parameterized reports
 
-## Appendices
+## **Appendices**
 
 - **[Visual vs Source Mode](appendix-visual-vs-source-mode.qmd)**
 - **[Course Template](appendix-template.qmd)**
@@ -47,10 +68,18 @@ knitr::knit_engines$set(shell = function(options) {
 - **[HTML Extensions](appendix-html-extensions.qmd)**
 - **[Manuscripts](appendix-manuscript.qmd)**
 
-## Download for Training
+---
 
-```{r}
-#| label: use-course
-#| echo: true
-#| eval: false
-usethis::use_course("mesfin/qmd")
+**Public Health Data Science Training**  
+**[References](references.qmd)** | **[Acknowledgements](acknowledgements.qmd)** | **[License](license.qmd)**
+
+---
+
+## **Training Flow**
+```
+1. usethis::use_course("mesfin/qmd")    → Download
+2. quarto render                        → Build docs/
+3. quarto preview docs/                 → Train at localhost:8000
+```
+
+

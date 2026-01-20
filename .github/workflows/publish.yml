@@ -15,31 +15,36 @@ jobs:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0
-        submodules: false
     
-    # Install R + dependencies
+    # 1. INSTALL R FIRST
     - uses: r-lib/actions/setup-r@v2
       with:
+        use-public-rspm: true
         r-version: '4.4'
-        install-r: false
     
+    # 2. Install system dependencies
     - uses: r-lib/actions/setup-r-dependencies@v2
       with:
         extra-packages: |
           rmarkdown
           tinytex
-          any::bookdown
+          bookdown
+          quarto
+          tidyverse
+          here
+          gapminder
     
-    # Install Quarto
+    # 3. Install Quarto
     - uses: quarto-dev/quarto-actions/setup@v2
     
-    # Render (R code will execute)
+    # 4. Render book
     - name: Render Quarto book
       run: |
-        quarto render --to html
+        quarto render
     
+    # 5. Upload artifact
     - name: Upload Pages artifact
-      uses: actions/upload-pages-artifact@v3
+      uses: actions/upload-pages-artifact@v4
       with:
         path: ./docs
 
